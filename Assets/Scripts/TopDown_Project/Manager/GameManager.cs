@@ -17,6 +17,9 @@ namespace TopDown_Project
         private UIManager uiManager;
         public static bool isFirstLoading = true;
 
+        private int waveScore = 0;
+        public int WaveScore { get => waveScore; }
+
         private void Awake()
         {
             instance = this;
@@ -56,6 +59,8 @@ namespace TopDown_Project
             currentWaveIndex += 1;
             uiManager.ChangeWave(currentWaveIndex);
             enemyManager.StartWave(1 + currentWaveIndex / 5);
+
+            waveScore = currentWaveIndex;
         }
 
         public void EndOfWave()
@@ -66,6 +71,18 @@ namespace TopDown_Project
         public void GameOver()
         {
             enemyManager.StopWave();
+            UpdateScore();
+        }
+
+        public void UpdateScore()
+        {
+            if (Metabus2D.GameManager.Instance.BestWaveScore < waveScore)
+            {
+                Debug.Log("최고 점수 갱신");
+                Metabus2D.GameManager.Instance.BestWaveScore = waveScore;
+
+                PlayerPrefs.SetInt(Metabus2D.GameManager.BestWaveScoreKey, Metabus2D.GameManager.Instance.BestWaveScore);
+            }
         }
     }
 }

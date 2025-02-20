@@ -38,26 +38,12 @@ namespace TheStack_Project
 
         private bool isMovingX = true;
 
-        private int bestScore = 0;
-        public int BestScore { get => bestScore; }
-
-        private int bestCombo = 0;
-        public int BestCombo { get => bestCombo; }
-
-        private const string BestScoreKey = "BestScore";
-        private const string BestComboKey = "BestCombo";
-
-        private void Awake()
-        {
-            Screen.SetResolution(1125, 2436, FullScreenMode.FullScreenWindow);
-        }
-
         private void Start()
         {
             uiManager = UIManager.Instance;
 
-            bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
-            bestCombo = PlayerPrefs.GetInt(BestComboKey, 0);
+            Metabus2D.GameManager.Instance.BestStackScore = PlayerPrefs.GetInt(Metabus2D.GameManager.BestStackScoreKey, 0);
+            Metabus2D.GameManager.Instance.BestStackCombo = PlayerPrefs.GetInt(Metabus2D.GameManager.BestStackComboKey, 0);
 
             prevColor = GetRandomColor();
             nextColor = GetRandomColor();
@@ -291,14 +277,14 @@ namespace TheStack_Project
 
         private void UpdateScore()
         {
-            if (bestScore < stackCount)
+            if (Metabus2D.GameManager.Instance.BestStackScore < stackCount)
             {
                 Debug.Log("최고 점수 갱신");
-                bestScore = stackCount;
-                bestCombo = maxCombo;
+                Metabus2D.GameManager.Instance.BestStackScore = stackCount;
+                Metabus2D.GameManager.Instance.BestStackCombo = maxCombo;
 
-                PlayerPrefs.SetInt(BestScoreKey, bestScore);
-                PlayerPrefs.SetInt(BestComboKey, bestCombo);
+                PlayerPrefs.SetInt(Metabus2D.GameManager.BestStackScoreKey, Metabus2D.GameManager.Instance.BestStackScore);
+                PlayerPrefs.SetInt(Metabus2D.GameManager.BestStackComboKey, Metabus2D.GameManager.Instance.BestStackCombo);
             }
         }
 

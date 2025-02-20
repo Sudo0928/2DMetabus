@@ -29,7 +29,7 @@ namespace FlappyPlane_Project
         public void UpdatePanel(int score)
         {
             scorePanelText.text = score.ToString();
-            bestScorePanelText.text = score.ToString();
+            bestScorePanelText.text = Metabus2D.GameManager.Instance.BestFlappyScore.ToString();
         }
 
         public void OnPanel()

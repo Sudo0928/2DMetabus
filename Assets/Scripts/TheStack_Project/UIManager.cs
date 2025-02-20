@@ -73,7 +73,7 @@ namespace TheStack_Project
 
         public void SetScoreUI()
         {
-            scoreUI.SetUI(theStack.Score, theStack.Combo, theStack.BestScore, theStack.BestCombo);
+            scoreUI.SetUI(theStack.Score, theStack.Combo, Metabus2D.GameManager.Instance.BestStackScore, Metabus2D.GameManager.Instance.BestStackCombo);
 
             ChangeState(UIState.Score);
         }

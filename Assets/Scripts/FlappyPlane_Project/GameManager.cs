@@ -8,6 +8,8 @@ namespace FlappyPlane_Project
         private static GameManager gameManager;
         private static UIManager uiManager;
 
+        private int flappyScore = 0;
+
         public static GameManager Instance
         {
             get { return gameManager; }
@@ -17,8 +19,6 @@ namespace FlappyPlane_Project
         {
             get { return uiManager; }
         }
-
-        private int currentScore = 0;
 
         private void Awake()
         {
@@ -42,8 +42,8 @@ namespace FlappyPlane_Project
         public void GameOver()
         {
             Debug.Log("Game Over");
-
-            uiManager.UpdatePanel(currentScore);
+            UpdateScore();
+            uiManager.UpdatePanel(flappyScore);
         }
 
         public void RestartGame()
@@ -58,9 +58,20 @@ namespace FlappyPlane_Project
 
         public void AddScore(int score)
         {
-            currentScore += score;
-            uiManager.UpdateScore(currentScore);
-            Debug.Log("Score: " + currentScore);
+            flappyScore += score;
+            uiManager.UpdateScore(flappyScore);
+            Debug.Log("Score: " + flappyScore);
+        }
+
+        public void UpdateScore()
+        {
+            if (Metabus2D.GameManager.Instance.BestFlappyScore < flappyScore)
+            {
+                Debug.Log("최고 점수 갱신");
+                Metabus2D.GameManager.Instance.BestFlappyScore = flappyScore;
+
+                PlayerPrefs.SetInt(Metabus2D.GameManager.BestFlappyScoreKey, Metabus2D.GameManager.Instance.BestFlappyScore);
+            }
         }
     }
 }

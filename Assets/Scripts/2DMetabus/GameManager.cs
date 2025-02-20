@@ -16,6 +16,7 @@ namespace Metabus2D
                 {
                     GameObject gameObject = new GameObject("GameManager");
                     GameManager gameManager = gameObject.AddComponent<GameManager>();
+                    gameManager.Init();
                     instance = gameManager;
                     return gameManager;
                 }
@@ -51,13 +52,10 @@ namespace Metabus2D
             if (!instance) instance = this;
             else Destroy(gameObject);
 
-            bestFlappyScore = PlayerPrefs.GetInt(BestFlappyScoreKey, 0);
-            bestStackScore = PlayerPrefs.GetInt(BestStackScoreKey, 0);
-            bestStackCombo = PlayerPrefs.GetInt(BestStackComboKey, 0);
-            bestWaveScore = PlayerPrefs.GetInt(BestWaveScoreKey, 0);
+            Init();
 
             player = FindObjectOfType<PlayerController>();
-            player.Init(this);
+            player?.Init(this);
 
             DontDestroyOnLoad(gameObject);
         }
@@ -72,6 +70,14 @@ namespace Metabus2D
             {
                 isFirstLoading = false;
             }
+        }
+
+        private void Init()
+        {
+            bestFlappyScore = PlayerPrefs.GetInt(BestFlappyScoreKey, 0);
+            bestStackScore = PlayerPrefs.GetInt(BestStackScoreKey, 0);
+            bestStackCombo = PlayerPrefs.GetInt(BestStackComboKey, 0);
+            bestWaveScore = PlayerPrefs.GetInt(BestWaveScoreKey, 0);
         }
     }
 }

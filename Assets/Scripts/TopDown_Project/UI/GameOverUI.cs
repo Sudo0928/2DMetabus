@@ -19,7 +19,7 @@ namespace TopDown_Project
 
         private void OnClickExitButton()
         {
-            Application.Quit();
+            SceneManager.LoadScene("Metabus2D");
         }
 
         private void OnClickRestartButton()

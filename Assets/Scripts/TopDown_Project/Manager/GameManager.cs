@@ -72,6 +72,7 @@ namespace TopDown_Project
         {
             enemyManager.StopWave();
             UpdateScore();
+            uiManager.SetGameOver();
         }
 
         public void UpdateScore()

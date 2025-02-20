@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TopDown_Project
@@ -22,7 +23,7 @@ namespace TopDown_Project
 
         public void OnClickExitButton()
         {
-            Application.Quit();
+            SceneManager.LoadScene("Metabus2D");
         }
 
         protected override UIState GetUIState()

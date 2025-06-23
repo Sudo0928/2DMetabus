@@ -14,11 +14,21 @@ namespace Metabus2D
                 if (instance != null) return instance;
                 else
                 {
-                    GameObject gameObject = new GameObject("GameManager");
-                    GameManager gameManager = gameObject.AddComponent<GameManager>();
-                    gameManager.Init();
-                    instance = gameManager;
-                    return gameManager;
+                    GameManager gameManager = FindObjectOfType<GameManager>();
+                    if (!gameManager)
+                    {
+                        GameObject gameObject = new GameObject("GameManager");
+                        gameManager = gameObject.AddComponent<GameManager>();
+                        gameManager.Init();
+                        instance = gameManager;
+                        return gameManager;
+                    }
+                    else
+                    {
+                        gameManager.Init();
+                        instance = gameManager;
+                        return gameManager;
+                    }
                 }
             }
         }
@@ -46,6 +56,8 @@ namespace Metabus2D
         public const string BestStackScoreKey = "BestStackScore";
         public const string BestStackComboKey = "BestStackCombo";
         public const string BestWaveScoreKey = "BestWaveScore";
+
+        [field:SerializeField] public int maxSortingOrder;
 
         private void Awake()
         {

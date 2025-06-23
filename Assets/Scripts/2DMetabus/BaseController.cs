@@ -38,6 +38,7 @@ namespace Metabus2D
         protected virtual void FixedUpdate()
         {
             Movement(movementDirection);
+            SortingOrderUpdate();
         }
 
         private void Movement(Vector2 direction)
@@ -55,6 +56,11 @@ namespace Metabus2D
             bool isLeft = Mathf.Abs(rotZ) > 90f;
 
             characterRenderer.flipX = isLeft;
+        }
+
+        private void SortingOrderUpdate()
+        {
+            characterRenderer.sortingOrder = Mathf.RoundToInt((200 + GameManager.Instance.maxSortingOrder - transform.position.y) * 100);
         }
     }
 }
